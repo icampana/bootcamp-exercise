@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 
-function FriendsList() {
-  const friends = ["David", "Esteban", "Valentina"];
-  const printFriend = (name) => {
-    return <li style={nameStyle}>{name}</li>;
+import Avatar from "./avatar";
+import Button from "./button";
+
+function FriendsList(Props) {
+  const friends = Props.list;
+  const [showFriend, setShowFriend] = useState("");
+
+  if (friends.length === 0) {
+    return <div>No friends available</div>;
+  }
+  const showCharacter = (name) => {
+    setShowFriend(name);
+  };
+
+  const printFriend = (friend) => {
+    return (
+      <li key={friend.name} style={nameStyle}>
+        <Avatar src={friend.image} />
+        {friend.name}
+        <Button
+          click={() => {
+            showCharacter(friend.name);
+          }}
+        >
+          View Description
+        </Button>
+        <div
+          style={{
+            display: showFriend === friend.name ? "block" : "none"
+          }}
+        >
+          {friend.description}
+        </div>
+      </li>
+    );
   };
 
   return <ul>{friends.map(printFriend)}</ul>;
