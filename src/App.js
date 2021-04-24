@@ -1,25 +1,43 @@
 import "./styles.css";
 import Button from "./components/button";
 import { useState } from "react";
+import FriendsList from "./components/friends-list";
 
 export default function App() {
   const [counter, setCounter] = useState(1);
 
-  const myClick = (event) => {
-    event.preventDefault();
+  const addUp = () => {
     setCounter(counter + 1);
   };
 
   return (
     <div className="App">
       <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
 
-      <div>
-        <span>{counter}</span>
-      </div>
+      <FriendsList />
 
-      <Button click={myClick}>Click Me!</Button>
+      <div>The total value is {counter}</div>
+
+      <Button click={addUp} type="danger">
+        Add Up +
+      </Button>
+
+      <Button
+        click={() => {
+          setCounter(counter - 1);
+        }}
+      >
+        Remove -
+      </Button>
+
+      <Button
+        click={() => {
+          alert(`The current value is: ${counter}`);
+        }}
+        type="danger"
+      >
+        Show Alert
+      </Button>
     </div>
   );
 }
